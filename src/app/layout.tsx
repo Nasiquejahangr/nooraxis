@@ -21,6 +21,9 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "Nooraxis Technologies | Modern Digital Solutions",
   description: "Empowering Businesses with Modern Technology, Digital Innovation & Creative Solutions",
+  verification: {
+    google: "zMJB-JEKvVOX1KTSo5_Sm5QtOOGxZaqGbvb3jNjaWhI",
+  },
 };
 
 export default function RootLayout({
