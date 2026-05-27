@@ -19,8 +19,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Nooraxis Technologies | Modern Digital Solutions",
-  description: "Empowering Businesses with Modern Technology, Digital Innovation & Creative Solutions",
+  title: "Nooraxis Technologies | Web Development & Digital Solutions | Purnia, Bihar",
+  description: "Nooraxis Technologies - Professional web development, software solutions, digital marketing & UI/UX design services in Purnia, Bihar, India. MSME Registered Company.",
   verification: {
     google: "zMJB-JEKvVOX1KTSo5_Sm5QtOOGxZaqGbvb3jNjaWhI",
   },
