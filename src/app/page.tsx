@@ -57,55 +57,132 @@ export default function Home() {
           <div className="absolute top-[40%] left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-blue/10 dark:via-brand-blue/20 to-transparent" />
         </div>
 
-        <div className="container mx-auto max-w-5xl text-center relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center gap-2.5 px-4.5 py-1.5 rounded-full bg-brand-blue/5 dark:bg-white/5 border border-brand-blue/10 dark:border-white/10 text-brand-blue dark:text-brand-accent mb-8 shadow-sm backdrop-blur-md hover:scale-102 transition-transform cursor-pointer"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse" />
-            <span className="text-xs font-semibold tracking-[0.15em] uppercase font-mono">Design & Engineering Studio</span>
-          </motion.div>
+        <div className="container mx-auto max-w-7xl relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            {/* Left Column: Text & Metrics */}
+            <div className="lg:col-span-7 text-center lg:text-left space-y-8">
+              <motion.div
+                initial={{ opacity: 0, y: -15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-flex items-center gap-2.5 px-4.5 py-1.5 rounded-full bg-brand-blue/5 dark:bg-white/5 border border-brand-blue/10 dark:border-white/10 text-brand-blue dark:text-brand-accent shadow-sm backdrop-blur-md hover:scale-102 transition-transform cursor-pointer"
+              >
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse" />
+                <span className="text-xs font-semibold tracking-[0.15em] uppercase font-mono">Design & Engineering Studio</span>
+              </motion.div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="text-4xl sm:text-6xl md:text-7.5xl font-heading font-extrabold tracking-tight mb-8 leading-[1.05] text-gray-900 dark:text-white"
-          >
-            We engineer custom <span className="text-gradient">digital products</span> that define industries.
-          </motion.h1>
+              <motion.h1
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                className="text-4xl sm:text-5xl md:text-6xl xl:text-7.5xl font-heading font-extrabold tracking-tight leading-[1.05] text-gray-900 dark:text-white"
+              >
+                We engineer custom <span className="text-gradient font-black">digital products</span> that define industries.
+              </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed font-sans"
-          >
-            We are a tightly knit collective of designers and engineers crafting fast, secure, and beautiful digital systems. No template shortcuts, no empty promises—just rigorous engineering and honest collaboration.
-          </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-sans"
+              >
+                We are a tightly knit collective of designers and engineers crafting fast, secure, and beautiful digital systems. No template shortcuts, no empty promises—just rigorous engineering and honest collaboration.
+              </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-5"
-          >
-            <Link
-              href="/portfolio"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue/95 text-white font-medium transition-all shadow-[0_4px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_30px_rgba(37,99,235,0.45)] flex items-center justify-center gap-2 group cursor-pointer text-sm"
+              <motion.div
+                initial={{ opacity: 0, y: 25 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
+              >
+                <Link
+                  href="/portfolio"
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue/95 text-white font-semibold transition-all shadow-[0_4px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_30px_rgba(37,99,235,0.45)] flex items-center justify-center gap-2 group cursor-pointer text-sm"
+                >
+                  View Our Work
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </Link>
+                <Link
+                  href="/services"
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/40 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/70 dark:hover:bg-white/10 text-gray-800 dark:text-white font-semibold transition-all backdrop-blur-md flex items-center justify-center text-sm"
+                >
+                  Explore Services
+                </Link>
+              </motion.div>
+
+              {/* Statistical highlights row */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="flex items-center justify-center lg:justify-start gap-10 pt-8 border-t border-black/5 dark:border-white/5 max-w-md mx-auto lg:mx-0"
+              >
+                <div>
+                  <div className="text-2xl sm:text-3xl font-heading font-black text-brand-accent">250+</div>
+                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-1 font-mono">Websites Delivered</div>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl font-heading font-black text-brand-accent">3+ Years</div>
+                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-1 font-mono">Studio Growth</div>
+                </div>
+                <div>
+                  <div className="text-2xl sm:text-3xl font-heading font-black text-brand-accent">99%</div>
+                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-1 font-mono">Client Success</div>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Right Column: High-Fidelity Stats Grid Console */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, x: 20 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-5 hidden lg:block relative"
             >
-              View Our Work
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
-            <Link
-              href="/services"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/40 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/70 dark:hover:bg-white/10 text-gray-800 dark:text-white font-medium transition-all backdrop-blur-md flex items-center justify-center text-sm"
-            >
-              Explore Services
-            </Link>
-          </motion.div>
+              {/* Outer HSL glows */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/15 to-brand-accent/15 rounded-3xl blur-2xl pointer-events-none" />
+              
+              {/* Glass Stats Console Container */}
+              <div className="glass-dark border border-gray-200 dark:border-white/10 rounded-3xl p-8 relative z-10 bg-white/60 dark:bg-[#03050c]/85 backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
+                
+                {/* Tech header inside the console card */}
+                <div className="flex items-center justify-between mb-8 pb-4 border-b border-black/5 dark:border-white/5">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-brand-accent animate-pulse" />
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest font-mono">[SYS-PERFORMANCE]</span>
+                  </div>
+                  <span className="text-[9px] font-bold text-brand-blue font-mono">METRICS LIVE //</span>
+                </div>
+
+                {/* 2x2 grid similar to reference site, but styled with high-fidelity glass */}
+                <div className="grid grid-cols-2 gap-5">
+                  <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm">
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">1125+</div>
+                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Global Projects</div>
+                  </div>
+                  <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm mt-4">
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">25+</div>
+                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Countries Served</div>
+                  </div>
+                  <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm">
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">3450+</div>
+                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Happy Clients</div>
+                  </div>
+                  <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm mt-4">
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">50+</div>
+                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Senior Builders</div>
+                  </div>
+                </div>
+
+                <div className="mt-8 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-[10px] text-gray-400 font-mono">
+                  <span>AUDITED SYSTEM OK //</span>
+                  <span className="text-green-500 font-bold">● SECURE UPTIME</span>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </section>
 
