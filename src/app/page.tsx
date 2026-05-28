@@ -20,7 +20,8 @@ import {
   Sparkles,
   Layers,
   Zap,
-  Globe
+  Globe,
+  Phone
 } from "lucide-react";
 import Interactive3DTexture from "@/components/Interactive3DTexture";
 
@@ -97,18 +98,19 @@ export default function Home() {
                 className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
               >
                 <Link
-                  href="/portfolio"
+                  href="/contact"
                   className="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue/95 text-white font-semibold transition-all shadow-[0_4px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_30px_rgba(37,99,235,0.45)] flex items-center justify-center gap-2 group cursor-pointer text-sm"
                 >
-                  View Our Work
+                  Get Free Quote
                   <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
-                <Link
-                  href="/services"
-                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/40 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/70 dark:hover:bg-white/10 text-gray-800 dark:text-white font-semibold transition-all backdrop-blur-md flex items-center justify-center text-sm"
+                <a
+                  href="tel:+919508904653"
+                  className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/40 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/70 dark:hover:bg-white/10 text-gray-800 dark:text-white font-semibold transition-all backdrop-blur-md flex items-center justify-center gap-2 text-sm"
                 >
-                  Explore Services
-                </Link>
+                  <Phone size={16} className="text-brand-accent animate-pulse" />
+                  Call: +91 9508904653
+                </a>
               </motion.div>
 
               {/* Statistical highlights row */}
