@@ -46,7 +46,7 @@ export default function Home() {
     <div className="flex flex-col w-full overflow-hidden tech-grid min-h-screen">
 
       {/* Hero Section */}
-      <section className="relative min-h-[95vh] flex items-center justify-center pt-4 md:pt-8 pb-28 px-6 overflow-hidden">
+      <section className="relative min-h-[75vh] md:min-h-[80vh] flex items-center justify-center pt-2 pb-10 px-6 overflow-hidden">
         {/* Interactive 3D Mesh Particle Grid */}
         <Interactive3DTexture />
 
@@ -77,7 +77,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                className="text-4xl sm:text-5xl md:text-6xl xl:text-7.5xl font-heading font-extrabold tracking-tight leading-[1.05] text-gray-900 dark:text-white"
+                className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-heading font-extrabold tracking-tight leading-[1.1] text-gray-900 dark:text-white"
               >
                 We engineer custom <span className="text-gradient font-black">digital products</span> that define industries.
               </motion.h1>
@@ -118,19 +118,19 @@ export default function Home() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className="flex items-center justify-center lg:justify-start gap-10 pt-8 border-t border-black/5 dark:border-white/5 max-w-md mx-auto lg:mx-0"
+                className="flex items-center justify-center lg:justify-start gap-8 pt-6 border-t border-black/5 dark:border-white/5 max-w-md mx-auto lg:mx-0"
               >
                 <div>
-                  <div className="text-2xl sm:text-3xl font-heading font-black text-brand-accent">250+</div>
-                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-1 font-mono">Websites Delivered</div>
+                  <div className="text-xl sm:text-2xl font-heading font-black text-brand-accent">20+</div>
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1 font-mono">Websites</div>
                 </div>
                 <div>
-                  <div className="text-2xl sm:text-3xl font-heading font-black text-brand-accent">3+ Years</div>
-                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-1 font-mono">Studio Growth</div>
+                  <div className="text-xl sm:text-2xl font-heading font-black text-brand-accent">2+ Years</div>
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1 font-mono">Growth</div>
                 </div>
                 <div>
-                  <div className="text-2xl sm:text-3xl font-heading font-black text-brand-accent">99%</div>
-                  <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mt-1 font-mono">Client Success</div>
+                  <div className="text-xl sm:text-2xl font-heading font-black text-brand-accent">99%</div>
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1 font-mono">Success</div>
                 </div>
               </motion.div>
             </div>
@@ -160,19 +160,19 @@ export default function Home() {
                 {/* 2x2 grid similar to reference site, but styled with high-fidelity glass */}
                 <div className="grid grid-cols-2 gap-5">
                   <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm">
-                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">1125+</div>
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">25+</div>
                     <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Global Projects</div>
                   </div>
                   <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm mt-4">
-                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">25+</div>
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">5+</div>
                     <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Countries Served</div>
                   </div>
                   <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm">
-                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">3450+</div>
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">20+</div>
                     <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Happy Clients</div>
                   </div>
                   <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm mt-4">
-                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">50+</div>
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">5+</div>
                     <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Senior Builders</div>
                   </div>
                 </div>
@@ -479,11 +479,11 @@ export default function Home() {
                     <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Client Satisfaction</div>
                   </div>
                   <div className="glass bg-white/40 dark:bg-black/40 p-6 rounded-2xl text-center border border-white/20 dark:border-white/5 shadow-sm mt-8">
-                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">250+</div>
+                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">20+</div>
                     <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Projects Delivered</div>
                   </div>
                   <div className="glass bg-white/40 dark:bg-black/40 p-6 rounded-2xl text-center border border-white/20 dark:border-white/5 shadow-sm">
-                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">15+</div>
+                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">5+</div>
                     <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Countries Served</div>
                   </div>
                   <div className="glass bg-white/40 dark:bg-black/40 p-6 rounded-2xl text-center border border-white/20 dark:border-white/5 shadow-sm mt-8">
