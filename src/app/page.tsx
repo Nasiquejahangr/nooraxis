@@ -298,13 +298,13 @@ export default function Home() {
       </section>
 
       {/* Bento Grid Core Services */}
-      <section className="py-28 bg-white dark:bg-[#050816]/30 relative transition-colors duration-500">
+      <section className="py-28 bg-slate-50/30 dark:bg-[#050816]/30 border-y border-slate-100 dark:border-white/5 relative transition-colors duration-500">
         <div className="container mx-auto px-6 max-w-7xl">
           <motion.div {...fadeIn} className="text-center mb-20 max-w-3xl mx-auto">
             <span className="text-xs font-semibold tracking-[0.2em] text-brand-blue dark:text-brand-accent uppercase mb-3 block font-mono">Our Craft</span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold mb-6 text-gray-900 dark:text-white">What We Do Best</h2>
-            <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-xl mx-auto font-sans leading-relaxed">
-              We focus on pristine frontend experiences, custom cloud applications, and sustainable organic traffic. Every line of code is written with deliberate intent.
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold mb-6 text-gray-900 dark:text-white tracking-tight">What We Do Best</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-2xl mx-auto font-sans leading-relaxed">
+              We build fast, honest, and reliable digital systems designed to help your business grow. No bloated templates, no cutting corners—just beautiful software engineered with absolute care.
             </p>
           </motion.div>
 
@@ -319,23 +319,23 @@ export default function Home() {
             {/* Bento Card 1: Web Development (Col-Span 2) */}
             <motion.div
               variants={fadeIn}
-              className="md:col-span-2 glass-dark p-8 sm:p-10 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-brand-blue/30 dark:hover:border-brand-blue/30 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative bg-white/50 dark:bg-transparent"
+              className="md:col-span-2 p-8 sm:p-10 rounded-[32px] bg-gradient-to-br from-blue-50/40 to-blue-100/20 dark:from-[#080f21] dark:to-[#040914] border border-blue-100/60 dark:border-blue-900/20 hover:border-brand-blue/30 dark:hover:border-brand-blue/40 hover:shadow-[0_20px_50px_rgba(37,99,235,0.05)] dark:hover:shadow-[0_20px_50px_rgba(37,99,235,0.12)] transition-all duration-300 flex flex-col justify-between group overflow-hidden relative"
             >
-              <div className="absolute top-0 right-0 w-80 h-80 bg-brand-blue/5 rounded-full blur-[80px] pointer-events-none group-hover:bg-brand-blue/10 transition-colors" />
+              <div className="absolute top-0 right-0 w-80 h-80 bg-brand-blue/5 rounded-full blur-[80px] pointer-events-none transition-colors" />
               <div>
-                <div className="w-12 h-12 rounded-xl bg-brand-blue/10 dark:bg-brand-blue/20 text-brand-blue flex items-center justify-center mb-6">
-                  <Code size={22} />
+                <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-brand-blue flex items-center justify-center mb-6 border border-blue-100/50 dark:border-blue-900/20">
+                  <Code size={20} className="stroke-[2.2]" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Custom Web Engineering</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl leading-relaxed text-sm">
-                  We build high-performance web systems optimized for instantaneous load times and rigorous type-safety. Leveraging Next.js and secure REST/GraphQL architectures, our codebases are clean, maintainable, and built to scale.
+                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Genuine Web Craftsmanship</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl leading-relaxed text-sm font-sans">
+                  We build lightning-fast websites that look stunning and feel completely natural to use. By writing clean, custom code using Next.js, we ensure your site is easy to maintain, extremely secure, and designed to convert visitors into loyal customers.
                 </p>
               </div>
 
               {/* Custom Tech Stack Visual chips */}
-              <div className="flex flex-wrap gap-2 relative z-10 pt-4 border-t border-black/5 dark:border-white/5">
-                {["React / Next.js", "Node.js API", "Mongoose DB", "Tailwind CSS", "REST / GraphQL", "TypeScript"].map((chip) => (
-                  <span key={chip} className="px-3.5 py-1.5 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-xs font-semibold text-gray-700 dark:text-gray-300">
+              <div className="flex flex-wrap gap-2 relative z-10 pt-4 border-t border-slate-100 dark:border-white/5">
+                {["Next.js / React", "Clean Custom Code", "Instant Loading", "Type-Safe Backend", "Bespoke UI Design"].map((chip) => (
+                  <span key={chip} className="px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/10 text-[11px] font-semibold text-gray-600 dark:text-gray-300">
                     {chip}
                   </span>
                 ))}
@@ -345,66 +345,66 @@ export default function Home() {
             {/* Bento Card 2: Mobile Apps (Col-Span 1) */}
             <motion.div
               variants={fadeIn}
-              className="glass-dark p-8 sm:p-10 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-brand-blue/30 dark:hover:border-brand-blue/30 transition-all duration-300 flex flex-col justify-between group overflow-hidden bg-white/50 dark:bg-transparent"
+              className="p-8 sm:p-10 rounded-[32px] bg-gradient-to-br from-blue-50/40 to-blue-100/20 dark:from-[#080f21] dark:to-[#040914] border border-blue-100/60 dark:border-blue-900/20 hover:border-purple-500/30 dark:hover:border-purple-500/40 hover:shadow-[0_20px_50px_rgba(168,85,247,0.05)] dark:hover:shadow-[0_20px_50px_rgba(168,85,247,0.12)] transition-all duration-300 flex flex-col justify-between group overflow-hidden relative"
             >
-              <div className="absolute top-0 right-0 w-60 h-60 bg-purple-500/5 rounded-full blur-[60px] pointer-events-none group-hover:bg-purple-500/10 transition-colors" />
+              <div className="absolute top-0 right-0 w-60 h-60 bg-purple-500/5 rounded-full blur-[60px] pointer-events-none transition-colors" />
               <div>
-                <div className="w-12 h-12 rounded-xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-500 dark:text-purple-400 flex items-center justify-center mb-6">
-                  <Smartphone size={22} />
+                <div className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-6 border border-purple-100/50 dark:border-purple-900/20">
+                  <Smartphone size={20} className="stroke-[2.2]" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Bespoke Mobile Apps</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-sm">
-                  Fluid, cross-platform mobile apps for iOS and Android built on React Native and Flutter. We prioritize lightweight codebases, responsive UI layers, and natural gestural interactions.
+                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Intuitive Mobile Apps</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-sm font-sans">
+                  We design and engineer smooth, responsive mobile applications for iOS and Android. Our focus is on creating lightweight, reliable products with clean transitions and natural interactions that your users will genuinely love.
                 </p>
               </div>
-              <div className="flex gap-2.5 text-xs font-semibold text-purple-600 dark:text-purple-400 pt-4 border-t border-black/5 dark:border-white/5">
-                <span>Flutter / React Native</span>
+              <div className="flex items-center gap-2 text-[11px] font-semibold text-purple-600 dark:text-purple-400 pt-4 border-t border-slate-100 dark:border-white/5 font-mono uppercase tracking-wider">
+                <span>Flutter & React Native</span>
                 <span>•</span>
-                <span>iOS & Android</span>
+                <span>Designed for Real People</span>
               </div>
             </motion.div>
 
             {/* Bento Card 3: Digital Marketing & SEO (Col-Span 1) */}
             <motion.div
               variants={fadeIn}
-              className="glass-dark p-8 sm:p-10 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-brand-blue/30 dark:hover:border-brand-blue/30 transition-all duration-300 flex flex-col justify-between group overflow-hidden bg-white/50 dark:bg-transparent"
+              className="p-8 sm:p-10 rounded-[32px] bg-gradient-to-br from-blue-50/40 to-blue-100/20 dark:from-[#080f21] dark:to-[#040914] border border-blue-100/60 dark:border-blue-900/20 hover:border-emerald-500/30 dark:hover:border-emerald-500/40 hover:shadow-[0_20px_50px_rgba(16,185,129,0.05)] dark:hover:shadow-[0_20px_50px_rgba(16,185,129,0.12)] transition-all duration-300 flex flex-col justify-between group overflow-hidden relative"
             >
-              <div className="absolute top-0 right-0 w-60 h-60 bg-green-500/5 rounded-full blur-[60px] pointer-events-none group-hover:bg-green-500/10 transition-colors" />
+              <div className="absolute top-0 right-0 w-60 h-60 bg-emerald-500/5 rounded-full blur-[60px] pointer-events-none transition-colors" />
               <div>
-                <div className="w-12 h-12 rounded-xl bg-green-500/10 dark:bg-green-500/20 text-green-600 dark:text-green-400 flex items-center justify-center mb-6">
-                  <Megaphone size={22} />
+                <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 border border-emerald-100/50 dark:border-emerald-900/20">
+                  <Megaphone size={20} className="stroke-[2.2]" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Organic Visibility & SEO</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-sm">
-                  No spammy shortcuts or empty metrics. We optimize your technical speed, build high-converting landing pages, and structure index audits to drive sustainable, organic commercial intent.
+                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Honest Organic SEO</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-sm font-sans">
+                  No cheap tricks, black-hat hacks, or inflated metrics. We optimize your speed, refine your structural layout, and write compelling content that Google loves—helping your ideal clients find you naturally.
                 </p>
               </div>
-              <div className="flex gap-2.5 text-xs font-semibold text-green-600 dark:text-green-400 pt-4 border-t border-black/5 dark:border-white/5">
-                <span>Organic Growth</span>
+              <div className="flex items-center gap-2 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 pt-4 border-t border-slate-100 dark:border-white/5 font-mono uppercase tracking-wider">
+                <span>Sustainable Traffic</span>
                 <span>•</span>
-                <span>Technical SEO</span>
+                <span>Pure Organic Reach</span>
               </div>
             </motion.div>
 
             {/* Bento Card 4: Custom Enterprise Software (Col-Span 2) */}
             <motion.div
               variants={fadeIn}
-              className="md:col-span-2 glass-dark p-8 sm:p-10 rounded-3xl border border-gray-200 dark:border-white/5 hover:border-brand-blue/30 dark:hover:border-brand-blue/30 transition-all duration-300 flex flex-col justify-between group overflow-hidden relative bg-white/50 dark:bg-transparent"
+              className="md:col-span-2 p-8 sm:p-10 rounded-[32px] bg-gradient-to-br from-blue-50/40 to-blue-100/20 dark:from-[#080f21] dark:to-[#040914] border border-blue-100/60 dark:border-blue-900/20 hover:border-sky-500/30 dark:hover:border-sky-500/40 hover:shadow-[0_20px_50px_rgba(56,189,248,0.05)] dark:hover:shadow-[0_20px_50px_rgba(56,189,248,0.12)] transition-all duration-300 flex flex-col justify-between group overflow-hidden relative"
             >
-              <div className="absolute top-0 right-0 w-80 h-80 bg-brand-accent/5 rounded-full blur-[80px] pointer-events-none group-hover:bg-brand-accent/10 transition-colors" />
+              <div className="absolute top-0 right-0 w-80 h-80 bg-sky-500/5 rounded-full blur-[80px] pointer-events-none transition-colors" />
               <div>
-                <div className="w-12 h-12 rounded-xl bg-brand-accent/10 dark:bg-brand-accent/20 text-brand-accent flex items-center justify-center mb-6">
-                  <Layers size={22} />
+                <div className="w-12 h-12 rounded-2xl bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400 flex items-center justify-center mb-6 border border-sky-100/50 dark:border-sky-900/20">
+                  <Layers size={20} className="stroke-[2.2]" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Custom SaaS & Cloud Backends</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl leading-relaxed text-sm">
-                  Complete product development from database normalization to production hosting. We engineer secure Stripe payment models, intuitive dashboard layouts, and robust server configurations.
+                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Robust Cloud Software</h3>
+                <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl leading-relaxed text-sm font-sans">
+                  From secure multi-tenant payment integrations to complex database architectures, we build rock-solid backend systems. We handle all the scaling, servers, and hosting logic so you can focus entirely on running your business.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-black/5 dark:border-white/5">
-                {["SaaS Dashboard", "Cloud Deployments", "Stripe Checkout Integration", "High Availability Infrastructure"].map((item) => (
-                  <span key={item} className="px-3.5 py-1.5 rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-xs font-semibold text-gray-700 dark:text-gray-300">
+              <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-100 dark:border-white/5">
+                {["SaaS Dashboards", "Rock-Solid Databases", "Stripe Checkout Integrations", "Secure Cloud Infrastructure"].map((item) => (
+                  <span key={item} className="px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/10 text-[11px] font-semibold text-gray-600 dark:text-gray-300">
                     {item}
                   </span>
                 ))}

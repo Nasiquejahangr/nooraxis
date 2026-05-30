@@ -7,7 +7,7 @@ import {
   Briefcase, BookOpen, Layers, Plus, Trash2, 
   Edit3, ExternalLink, Code, CheckCircle, AlertCircle,
   Loader2, Globe, Sparkles, Upload, GraduationCap, Phone,
-  Copy, Check
+  Copy, Check, Tag
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Interactive3DTexture from "@/components/Interactive3DTexture";
@@ -24,7 +24,7 @@ export default function AdminPanel() {
   const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   // Tab State
-  const [activeTab, setActiveTab] = useState<"overview" | "portfolio" | "blog" | "jobs" | "enquiries" | "applications">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "portfolio" | "blog" | "jobs" | "enquiries" | "applications" | "offers">("overview");
 
   // Loaded Data States
   const [projects, setProjects] = useState<any[]>([]);
@@ -32,6 +32,13 @@ export default function AdminPanel() {
   const [jobs, setJobs] = useState<any[]>([]);
   const [enquiries, setEnquiries] = useState<any[]>([]);
   const [applications, setApplications] = useState<any[]>([]);
+
+  // Offers State
+  const [offerText, setOfferText] = useState("");
+  const [offerBtnText, setOfferBtnText] = useState("Call Now");
+  const [offerBtnLink, setOfferBtnLink] = useState("tel:+919508904653");
+  const [offerIsActive, setOfferIsActive] = useState(false);
+  const [isSavingOffer, setIsSavingOffer] = useState(false);
 
   
   // Loading indicators
@@ -208,20 +215,22 @@ export default function AdminPanel() {
   const fetchAllData = async () => {
     setIsLoadingData(true);
     try {
-      const [portRes, blogRes, jobsRes, enqRes, appRes] = await Promise.all([
+      const [portRes, blogRes, jobsRes, enqRes, appRes, offerRes] = await Promise.all([
         fetch("/api/portfolio"),
         fetch("/api/blog"),
         fetch("/api/jobs"),
         fetch("/api/enquiries"),
-        fetch("/api/applications")
+        fetch("/api/applications"),
+        fetch("/api/offers")
       ]);
 
-      const [portData, blogData, jobsData, enqData, appData] = await Promise.all([
+      const [portData, blogData, jobsData, enqData, appData, offerData] = await Promise.all([
         portRes.json(),
         blogRes.json(),
         jobsRes.json(),
         enqRes.json(),
-        appRes.json()
+        appRes.json(),
+        offerRes.json()
       ]);
 
       setProjects(Array.isArray(portData) ? portData : []);
@@ -229,6 +238,13 @@ export default function AdminPanel() {
       setJobs(Array.isArray(jobsData) ? jobsData : []);
       setEnquiries(Array.isArray(enqData) ? enqData : []);
       setApplications(Array.isArray(appData) ? appData : []);
+
+      if (offerData) {
+        setOfferText(offerData.text || "");
+        setOfferBtnText(offerData.buttonText || "Call Now");
+        setOfferBtnLink(offerData.buttonLink || "tel:+919508904653");
+        setOfferIsActive(offerData.isActive !== undefined ? offerData.isActive : false);
+      }
     } catch (err) {
       console.error("Error loading admin data:", err);
       triggerNotification("error", "Failed to sync data in real-time.");
@@ -463,6 +479,35 @@ export default function AdminPanel() {
     }
   };
 
+  const handleOfferSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSavingOffer(true);
+    try {
+      const res = await fetch("/api/offers", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: offerText,
+          buttonText: offerBtnText,
+          buttonLink: offerBtnLink,
+          isActive: offerIsActive,
+        }),
+      });
+
+      if (res.ok) {
+        triggerNotification("success", "Announcement banner updated successfully!");
+        fetchAllData();
+      } else {
+        const errData = await res.json();
+        triggerNotification("error", errData.error || "Failed to update banner.");
+      }
+    } catch (err) {
+      triggerNotification("error", "Network error occurred.");
+    } finally {
+      setIsSavingOffer(false);
+    }
+  };
+
   // Delete handlers
   const handleDeleteItem = async (type: "portfolio" | "blog" | "job" | "enquiry" | "application", id: string) => {
     if (!confirm(`Are you sure you want to delete this ${type}? This action cannot be undone.`)) return;
@@ -647,7 +692,8 @@ export default function AdminPanel() {
               { id: "blog", label: "Blog Articles", code: "[BLG-03]", icon: BookOpen },
               { id: "jobs", label: "Careers (Jobs)", code: "[JOB-04]", icon: Briefcase },
               { id: "enquiries", label: "Service Enquiries", code: "[ENQ-05]", icon: Mail },
-              { id: "applications", label: "Job Applications", code: "[APP-06]", icon: GraduationCap }
+              { id: "applications", label: "Job Applications", code: "[APP-06]", icon: GraduationCap },
+              { id: "offers", label: "Offers Banner", code: "[OFR-07]", icon: Tag }
             ].map(tab => (
               <button
                 key={tab.id}
@@ -1256,6 +1302,134 @@ export default function AdminPanel() {
                         ))}
                       </div>
                     )}
+                  </motion.div>
+                )}
+
+                {/* 2G. TAB: OFFERS BANNER CONTROL */}
+                {activeTab === "offers" && (
+                  <motion.div
+                    key="offers"
+                    initial={{ opacity: 0, y: 15 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 15 }}
+                    className="space-y-8"
+                  >
+                    <div className="border-b border-slate-200 dark:border-white/5 pb-4">
+                      <h2 className="text-2xl font-bold font-heading dark:text-white tracking-tight">Offers Management</h2>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">Control the real-time announcement bar displayed at the very top of all pages.</p>
+                    </div>
+
+                    {/* LIVE PREVIEW CONTAINER */}
+                    <div className="bg-slate-100/50 dark:bg-slate-900/10 border border-slate-200 dark:border-white/5 rounded-3xl p-6 backdrop-blur-md">
+                      <span className="block font-mono text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-4">[ BANNER REAL-TIME PREVIEW ]</span>
+                      
+                      {offerIsActive ? (
+                        <div className="w-full bg-gradient-to-r from-blue-950 via-[#102a75] to-indigo-950 text-white border border-blue-500/30 rounded-2xl py-3 px-6 relative transition-all duration-300 shadow-[0_4px_20px_rgba(37,99,235,0.35)] flex flex-col sm:flex-row items-center justify-center gap-3 text-center overflow-hidden">
+                          <div className="flex items-center justify-center flex-wrap gap-1 text-xs font-medium tracking-wide">
+                            <span className="text-cyan-400 animate-pulse font-bold mx-1 filter drop-shadow-[0_0_4px_rgba(34,211,238,0.8)]">★</span>
+                            <span className="drop-shadow-[0_0_6px_rgba(255,255,255,0.2)]">{offerText || "Limited Time Offer: Your Announcement Copy Here"}</span>
+                            <span className="text-cyan-400 animate-pulse font-bold mx-1 filter drop-shadow-[0_0_4px_rgba(34,211,238,0.8)]">★</span>
+                          </div>
+                          {offerBtnText && (
+                            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-[#ff5a00] to-[#ff7300] text-white text-[10px] font-bold shadow-[0_2px_10px_rgba(255,90,0,0.4)] shrink-0 select-none">
+                              {offerBtnLink.startsWith("tel:") && <Phone size={10} />}
+                              <span>{offerBtnText}</span>
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <div className="w-full py-8 border border-dashed border-slate-300 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 text-sm font-medium">
+                          <Tag className="w-8 h-8 text-slate-400 mb-2 opacity-50" />
+                          <span>Announcement Banner System is Deactivated</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* CONTROL FORM */}
+                    <form onSubmit={handleOfferSubmit} className="space-y-6 bg-white/40 dark:bg-[#080b17]/50 border border-slate-200/80 dark:border-white/10 rounded-[32px] p-8 backdrop-blur-2xl shadow-sm">
+                      <span className="block font-mono text-[9px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2">[ SYSTEM CONFIGURATION PANEL ]</span>
+
+                      <div className="space-y-6">
+                        {/* Offer text */}
+                        <div className="space-y-2">
+                          <label className={labelCls}>Announcement text copy</label>
+                          <textarea
+                            value={offerText}
+                            onChange={(e) => setOfferText(e.target.value)}
+                            placeholder="e.g., Limited Time Offer: Get 20% OFF on All Website Packages"
+                            required
+                            rows={3}
+                            className="w-full bg-slate-50/50 dark:bg-slate-950/40 border border-slate-200 dark:border-white/10 rounded-2xl px-4 py-3.5 text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:border-brand-blue focus:ring-1 focus:ring-brand-blue/30 transition-all font-sans resize-none"
+                          />
+                        </div>
+
+                        {/* Link and Button Text Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="space-y-2">
+                            <label className={labelCls}>CTA Button Text</label>
+                            <input
+                              type="text"
+                              value={offerBtnText}
+                              onChange={(e) => setOfferBtnText(e.target.value)}
+                              placeholder="e.g., Call Now"
+                              className={inputCls}
+                            />
+                          </div>
+
+                          <div className="space-y-2">
+                            <label className={labelCls}>CTA Link / Action URL</label>
+                            <input
+                              type="text"
+                              value={offerBtnLink}
+                              onChange={(e) => setOfferBtnLink(e.target.value)}
+                              placeholder="e.g., tel:+919508904653 or /contact"
+                              className={inputCls}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Toggle switch for Active Status */}
+                        <div className="flex items-center justify-between p-4 bg-slate-50/50 dark:bg-slate-950/20 border border-slate-200/50 dark:border-white/5 rounded-2xl">
+                          <div>
+                            <h4 className="text-sm font-bold dark:text-white">Active System Status</h4>
+                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">If enabled, the banner instantly displays at the top of the live site.</p>
+                          </div>
+                          
+                          <button
+                            type="button"
+                            onClick={() => setOfferIsActive(!offerIsActive)}
+                            className={`relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-250 ease-in-out focus:outline-none ${
+                              offerIsActive ? "bg-[#009846]" : "bg-slate-250 dark:bg-white/10"
+                            }`}
+                          >
+                            <span
+                              className={`pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-250 ease-in-out ${
+                                offerIsActive ? "translate-x-5" : "translate-x-0"
+                              }`}
+                            />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Action Button */}
+                      <button
+                        type="submit"
+                        disabled={isSavingOffer}
+                        className="w-full md:w-auto px-6 py-4 bg-gradient-to-r from-brand-blue to-blue-600 hover:opacity-95 text-white text-xs font-bold uppercase tracking-wider rounded-2xl transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-blue/15 cursor-pointer disabled:opacity-75 font-mono"
+                      >
+                        {isSavingOffer ? (
+                          <>
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            DEPLOYING BANNER CONFIG...
+                          </>
+                        ) : (
+                          <>
+                            <Tag size={14} />
+                            [ UPDATE BANNER SYSTEM ]
+                          </>
+                        )}
+                      </button>
+                    </form>
                   </motion.div>
                 )}
               </AnimatePresence>

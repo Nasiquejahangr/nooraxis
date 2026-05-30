@@ -39,10 +39,11 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-white dark:bg-black border-slate-200/50 dark:border-white/5 ${isScrolled
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 border-b bg-white dark:bg-black border-slate-200/50 dark:border-white/5 ${isScrolled
           ? "py-3 md:py-4 shadow-sm"
           : "py-5 md:py-6"
           }`}
+        style={{ top: "var(--announcement-height, 0px)" }}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-8 w-full flex items-center justify-between">
           {/* Logo Section */}
@@ -155,10 +156,7 @@ export default function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.25, ease: "easeOut" }}
-              className={`fixed ${isScrolled
-                ? "top-[61px] md:top-[73px]"
-                : "top-[85px] md:top-[101px]"
-                } left-0 right-0 bg-white dark:bg-black border-b border-slate-200/50 dark:border-white/5 shadow-lg px-6 py-8 flex flex-col gap-6 z-40 lg:hidden transition-all duration-300`}
+              className={`fixed left-0 right-0 bg-white dark:bg-black border-b border-slate-200/50 dark:border-white/5 shadow-lg px-6 py-8 flex flex-col gap-6 z-40 lg:hidden transition-all duration-300 nav-mobile-menu ${isScrolled ? "scrolled" : ""}`}
             >
               <div className="flex flex-col gap-1 max-w-xl mx-auto w-full">
                 {navLinks.map((link, i) => {
