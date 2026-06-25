@@ -45,6 +45,7 @@ export default function RootLayout({
           <WhatsAppWidget />
           <SpeedInsights />
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
