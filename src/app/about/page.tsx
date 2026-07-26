@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import {
   CheckCircle2,
@@ -260,12 +259,10 @@ export default function About() {
                   {...fadeIn}
                   className="scroll-item relative min-w-[320px] max-w-[320px] aspect-[4/5] overflow-hidden rounded-[2rem] bg-slate-100 dark:bg-slate-950/60 border border-gray-200 dark:border-white/10 shadow-sm"
                 >
-                  <Image
+                  <img
                     src={image.src}
                     alt={image.alt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 70vw, (max-width: 1280px) 45vw, 320px"
+                    className="h-full w-full object-cover"
                   />
                 </motion.div>
               ))}
