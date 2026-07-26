@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle2,
@@ -11,16 +11,20 @@ import {
   ShieldCheck,
   HeartHandshake,
 } from "lucide-react";
-import { useSettings } from "@/components/SettingsProvider";
 import Interactive3DTexture from "@/components/Interactive3DTexture";
 
-const fallbackGalleryImages = [
-  { src: "/portfolio/apex.png", alt: "Nooraxis office and team photo" },
-  { src: "/portfolio/chronos.png", alt: "Nooraxis workspace and culture" },
-  { src: "/portfolio/lumina.png", alt: "Nooraxis collaboration moments" },
+type GalleryImage = {
+  src?: string;
+  alt: string;
+  whiteBg?: boolean;
+  placeholder?: boolean;
+};
+
+const fallbackGalleryImages: GalleryImage[] = [
   {
-    src: "/portfolio/valkyrie.png",
-    alt: "Nooraxis authentic office environment",
+    placeholder: true,
+    alt: "No gallery images yet",
+    whiteBg: true,
   },
 ];
 
@@ -32,7 +36,7 @@ export default function About() {
     transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
   } as const;
 
-  const { settings } = useSettings();
+  const [aboutImages, setAboutImages] = useState<GalleryImage[]>([]);
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
 
   const markImageFailed = (src: string) =>
@@ -44,15 +48,36 @@ export default function About() {
       return next;
     });
 
-  const galleryImages = [
-    ...(settings?.galleryImages && settings.galleryImages.length > 0
-      ? settings.galleryImages.map((src, idx) => ({
-          src,
-          alt: `Nooraxis gallery image ${idx + 1}`,
-        }))
-      : []),
-    ...fallbackGalleryImages,
-  ];
+  useEffect(() => {
+    async function fetchAboutImages() {
+      try {
+        const res = await fetch("/api/about-images");
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          setAboutImages(
+            data.map((item: { src: string }, idx: number) => ({
+              src: item.src,
+              alt: `Nooraxis gallery image ${idx + 1}`,
+            })),
+          );
+        } else {
+          setAboutImages(fallbackGalleryImages);
+        }
+      } catch (error) {
+        console.error("Failed to load about images:", error);
+        setAboutImages(fallbackGalleryImages);
+      }
+    }
+
+    fetchAboutImages();
+  }, []);
+
+  const galleryImages =
+    aboutImages.length > 0 ? aboutImages : fallbackGalleryImages;
+  const renderedGallery =
+    galleryImages.length > 1
+      ? [...galleryImages, ...galleryImages]
+      : galleryImages;
 
   return (
     <div className="flex flex-col w-full overflow-hidden tech-grid min-h-screen">
@@ -265,25 +290,39 @@ export default function About() {
               className="horizontal-scroll-track flex gap-6"
               animate={{}}
             >
-              {[...galleryImages, ...galleryImages].map((image, index) => (
+              {renderedGallery.map((image, index) => (
                 <motion.div
-                  key={`${image.src}-${index}`}
+                  key={`${image.src ?? "placeholder"}-${index}`}
                   {...fadeIn}
-                  className="scroll-item relative min-w-[320px] max-w-[320px] aspect-[4/5] overflow-hidden rounded-[2rem] bg-slate-100 dark:bg-slate-950/60 border border-gray-200 dark:border-white/10 shadow-sm"
+                  className={`scroll-item relative min-w-[320px] max-w-[320px] aspect-[4/5] overflow-hidden rounded-[2rem] border border-gray-200 dark:border-white/10 shadow-sm ${
+                    image.whiteBg
+                      ? "bg-white"
+                      : "bg-slate-100 dark:bg-slate-950/60"
+                  }`}
                 >
-                  <img
-                    src={image.src}
-                    alt={image.alt}
-                    className="h-full w-full object-cover"
-                    onError={() => markImageFailed(image.src)}
-                    onLoad={() => markImageLoaded(image.src)}
-                  />
-                  {failedImages.has(image.src) && (
-                    <span
-                      className="pointer-events-none absolute top-3 right-3 h-3.5 w-3.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-slate-950"
-                      title="Image failed to load"
+                  {image.placeholder ? (
+                    <div className="flex h-full w-full items-center justify-center bg-black">
+                      <span className="text-sm text-white text-center px-4">
+                        No about gallery images uploaded yet.
+                      </span>
+                    </div>
+                  ) : (
+                    <img
+                      src={image.src}
+                      alt={image.alt}
+                      className="h-full w-full object-cover"
+                      onError={() => image.src && markImageFailed(image.src)}
+                      onLoad={() => image.src && markImageLoaded(image.src)}
                     />
                   )}
+                  {!image.placeholder &&
+                    image.src &&
+                    failedImages.has(image.src) && (
+                      <span
+                        className="pointer-events-none absolute top-3 right-3 h-3.5 w-3.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-slate-950"
+                        title="Image failed to load"
+                      />
+                    )}
                 </motion.div>
               ))}
             </motion.div>

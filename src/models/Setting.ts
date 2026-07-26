@@ -6,7 +6,6 @@ export interface ISetting extends Document {
   address: string;
   registrationDate: string;
   whatsapp: string;
-  galleryImages: string[];
 }
 
 const SettingSchema: Schema = new Schema(
@@ -16,7 +15,6 @@ const SettingSchema: Schema = new Schema(
     address: { type: String, default: "Madhopara Islam Nagar Purnia" },
     registrationDate: { type: String, default: "21 May 2026" },
     whatsapp: { type: String, default: "919508904653" },
-    galleryImages: { type: [String], default: [] },
   },
   { timestamps: true },
 );

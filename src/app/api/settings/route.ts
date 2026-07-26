@@ -35,8 +35,7 @@ export async function POST(request: Request) {
     }
     await connectToDatabase();
     const body = await request.json();
-    const { phone, email, address, registrationDate, whatsapp, galleryImages } =
-      body;
+    const { phone, email, address, registrationDate, whatsapp } = body;
     // Basic validation (allow partial update)
     const update: any = {};
     if (phone !== undefined) update.phone = phone;
@@ -45,7 +44,6 @@ export async function POST(request: Request) {
     if (registrationDate !== undefined)
       update.registrationDate = registrationDate;
     if (whatsapp !== undefined) update.whatsapp = whatsapp;
-    if (galleryImages !== undefined) update.galleryImages = galleryImages;
 
     const updated = await Setting.findOneAndUpdate({}, update, {
       upsert: true,

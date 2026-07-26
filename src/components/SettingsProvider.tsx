@@ -13,7 +13,6 @@ export interface Settings {
   address: string;
   registrationDate: string;
   whatsapp: string;
-  galleryImages: string[];
 }
 
 interface SettingsContextValue {

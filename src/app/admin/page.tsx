@@ -73,9 +73,42 @@ export default function AdminPanel() {
   const [companyEmail, setCompanyEmail] = useState("");
   const [companyRegistrationDate, setCompanyRegistrationDate] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
-  const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [galleryImages, setGalleryImages] = useState<
+    { _id: string; src: string }[]
+  >([]);
   const [galleryImageUrl, setGalleryImageUrl] = useState("");
   const [isSavingCompanySettings, setIsSavingCompanySettings] = useState(false);
+  const [isSavingGalleryImage, setIsSavingGalleryImage] = useState(false);
+
+  const saveGalleryImage = async (src: string) => {
+    try {
+      const res = await fetch("/api/about-images", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ src }),
+      });
+      if (!res.ok) return null;
+      const data = await res.json();
+      return data as { _id: string; src: string };
+    } catch (err) {
+      console.error("Failed to save about image:", err);
+      return null;
+    }
+  };
+
+  const deleteGalleryImage = async (id: string) => {
+    try {
+      const res = await fetch("/api/about-images", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      return res.ok;
+    } catch (err) {
+      console.error("Failed to delete about image:", err);
+      return false;
+    }
+  };
 
   // Loading indicators
   const [isLoadingData, setIsLoadingData] = useState(false);
@@ -201,9 +234,11 @@ export default function AdminPanel() {
         } else if (target === "blog") {
           setBImage(data.url);
         } else if (target === "gallery") {
-          setGalleryImages((prev) => [...prev, data.url]);
+          const created = await saveGalleryImage(data.url);
+          if (created) {
+            setGalleryImages((prev) => [...prev, created]);
+          }
         } else if (target === "blog-inline") {
-          // Insert at current cursor position in blog content textarea
           const textarea = document.getElementById(
             "bContent",
           ) as HTMLTextAreaElement | null;
@@ -241,10 +276,6 @@ export default function AdminPanel() {
     }
   };
 
-  const removeGalleryImage = (index: number) => {
-    setGalleryImages((current) => current.filter((_, idx) => idx !== index));
-  };
-
   // Helper trigger notification
   const triggerNotification = (type: "success" | "error", message: string) => {
     setNotification({ type, message });
@@ -279,16 +310,25 @@ export default function AdminPanel() {
   const fetchAllData = async () => {
     setIsLoadingData(true);
     try {
-      const [portRes, blogRes, jobsRes, enqRes, appRes, offerRes, settingsRes] =
-        await Promise.all([
-          fetch("/api/portfolio"),
-          fetch("/api/blog"),
-          fetch("/api/jobs"),
-          fetch("/api/enquiries"),
-          fetch("/api/applications"),
-          fetch("/api/offers"),
-          fetch("/api/settings"),
-        ]);
+      const [
+        portRes,
+        blogRes,
+        jobsRes,
+        enqRes,
+        appRes,
+        offerRes,
+        settingsRes,
+        aboutImagesRes,
+      ] = await Promise.all([
+        fetch("/api/portfolio"),
+        fetch("/api/blog"),
+        fetch("/api/jobs"),
+        fetch("/api/enquiries"),
+        fetch("/api/applications"),
+        fetch("/api/offers"),
+        fetch("/api/settings"),
+        fetch("/api/about-images"),
+      ]);
 
       const [
         portData,
@@ -298,6 +338,7 @@ export default function AdminPanel() {
         appData,
         offerData,
         settingsData,
+        aboutImagesData,
       ] = await Promise.all([
         portRes.json(),
         blogRes.json(),
@@ -306,6 +347,7 @@ export default function AdminPanel() {
         appRes.json(),
         offerRes.json(),
         settingsRes.json(),
+        aboutImagesRes.json(),
       ]);
 
       setProjects(Array.isArray(portData) ? portData : []);
@@ -328,7 +370,15 @@ export default function AdminPanel() {
         setCompanyEmail(settingsData.email || "");
         setCompanyRegistrationDate(settingsData.registrationDate || "");
         setCompanyAddress(settingsData.address || "");
-        setGalleryImages(settingsData.galleryImages || []);
+      }
+
+      if (Array.isArray(aboutImagesData)) {
+        setGalleryImages(
+          aboutImagesData.map((item: { _id: string; src: string }) => ({
+            _id: item._id,
+            src: item.src,
+          })),
+        );
       }
     } catch (err) {
       console.error("Error loading admin data:", err);
@@ -349,7 +399,6 @@ export default function AdminPanel() {
         email: companyEmail,
         registrationDate: companyRegistrationDate,
         address: companyAddress,
-        galleryImages,
       });
 
       if (updated) {
@@ -1970,34 +2019,71 @@ export default function AdminPanel() {
                               />
                               <button
                                 type="button"
-                                onClick={() => {
+                                onClick={async () => {
                                   if (!galleryImageUrl.trim()) return;
-                                  setGalleryImages((prev) => [
-                                    ...prev,
+                                  setIsSavingGalleryImage(true);
+                                  const created = await saveGalleryImage(
                                     galleryImageUrl.trim(),
-                                  ]);
-                                  setGalleryImageUrl("");
+                                  );
+                                  setIsSavingGalleryImage(false);
+
+                                  if (created) {
+                                    setGalleryImages((prev) => [
+                                      ...prev,
+                                      created,
+                                    ]);
+                                    setGalleryImageUrl("");
+                                    triggerNotification(
+                                      "success",
+                                      "About gallery image saved to Atlas.",
+                                    );
+                                  } else {
+                                    triggerNotification(
+                                      "error",
+                                      "Failed to save about image.",
+                                    );
+                                  }
                                 }}
-                                className="inline-flex items-center justify-center rounded-2xl bg-brand-blue px-5 py-3 text-sm font-semibold text-white hover:bg-brand-blue/90 transition"
+                                className="inline-flex items-center justify-center rounded-2xl bg-brand-blue px-5 py-3 text-sm font-semibold text-white hover:bg-brand-blue/90 transition disabled:opacity-70"
+                                disabled={isSavingGalleryImage}
                               >
-                                Add URL
+                                {isSavingGalleryImage ? "Saving..." : "Add URL"}
                               </button>
                             </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                               {galleryImages.length > 0 ? (
-                                galleryImages.map((src, index) => (
+                                galleryImages.map((image, index) => (
                                   <div
-                                    key={src + index}
+                                    key={image._id}
                                     className="group relative overflow-hidden rounded-3xl border border-slate-200 dark:border-white/10 bg-white/70 dark:bg-slate-950/70"
                                   >
                                     <img
-                                      src={src}
+                                      src={image.src}
                                       alt={`Gallery image ${index + 1}`}
                                       className="h-32 w-full object-cover"
                                     />
                                     <button
                                       type="button"
-                                      onClick={() => removeGalleryImage(index)}
+                                      onClick={async () => {
+                                        const removed =
+                                          await deleteGalleryImage(image._id);
+                                        if (removed) {
+                                          setGalleryImages((current) =>
+                                            current.filter(
+                                              (item) => item._id !== image._id,
+                                            ),
+                                          );
+                                          triggerNotification(
+                                            "success",
+                                            "Gallery image removed.",
+                                          );
+                                        } else {
+                                          triggerNotification(
+                                            "error",
+                                            "Failed to remove gallery image.",
+                                          );
+                                        }
+                                      }}
                                       className="absolute top-3 right-3 rounded-full bg-black/60 p-2 text-white opacity-80 hover:opacity-100 transition"
                                     >
                                       ×
