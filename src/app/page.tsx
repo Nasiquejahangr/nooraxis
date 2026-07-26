@@ -21,30 +21,37 @@ import {
   Layers,
   Zap,
   Globe,
-  Phone
+  Phone,
 } from "lucide-react";
 import Interactive3DTexture from "@/components/Interactive3DTexture";
+import { useSettings } from "@/components/SettingsProvider";
 
 export default function Home() {
+  const { settings } = useSettings();
+  const phoneLabel = settings?.phone || "+91 9508904653";
+  const phoneHref = settings?.phone
+    ? `tel:${settings.phone.replace(/\s+/g, "")}`
+    : "tel:+919508904653";
+  const registrationDate = settings?.registrationDate || "21 May 2026";
+
   const fadeIn = {
     initial: { opacity: 0, y: 25 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
   } as const;
 
   const staggerContainer = {
     initial: {},
     whileInView: {
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
 
   return (
     <div className="flex flex-col w-full overflow-hidden tech-grid min-h-screen">
-
       {/* Hero Section */}
       <section className="relative min-h-[75vh] md:min-h-[80vh] flex items-center justify-center pt-2 pb-10 px-6 overflow-hidden">
         {/* Interactive 3D Mesh Particle Grid */}
@@ -60,7 +67,6 @@ export default function Home() {
 
         <div className="container mx-auto max-w-7xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
             {/* Left Column: Text & Metrics */}
             <div className="lg:col-span-7 text-center lg:text-left space-y-8">
               <motion.div
@@ -70,31 +76,52 @@ export default function Home() {
                 className="inline-flex items-center gap-2.5 px-4.5 py-1.5 rounded-full bg-brand-blue/5 dark:bg-white/5 border border-brand-blue/10 dark:border-white/10 text-brand-blue dark:text-brand-accent shadow-sm backdrop-blur-md hover:scale-102 transition-transform cursor-pointer"
               >
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse" />
-                <span className="text-xs font-semibold tracking-[0.15em] uppercase font-mono">Design & Engineering Studio</span>
+                <span className="text-xs font-semibold tracking-[0.15em] uppercase font-mono">
+                  Design & Engineering Studio
+                </span>
               </motion.div>
 
               <motion.h1
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.15,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 className="text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-heading font-extrabold tracking-tight leading-[1.1] text-gray-900 dark:text-white"
               >
-                We engineer custom <span className="text-gradient font-black">digital products</span> that define industries.
+                We engineer custom{" "}
+                <span className="text-gradient font-black">
+                  digital products
+                </span>{" "}
+                that define industries.
               </motion.h1>
 
               <motion.p
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.3,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-sans"
               >
-                We are a tightly knit collective of designers and engineers crafting fast, secure, and beautiful digital systems. No template shortcuts, no empty promises—just rigorous engineering and honest collaboration.
+                We are a tightly knit collective of designers and engineers
+                crafting fast, secure, and beautiful digital systems. No
+                template shortcuts, no empty promises—just rigorous engineering
+                and honest collaboration.
               </motion.p>
 
               <motion.div
                 initial={{ opacity: 0, y: 25 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                transition={{
+                  duration: 0.8,
+                  delay: 0.45,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2"
               >
                 <Link
@@ -102,14 +129,20 @@ export default function Home() {
                   className="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue/95 text-white font-semibold transition-all shadow-[0_4px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_30px_rgba(37,99,235,0.45)] flex items-center justify-center gap-2 group cursor-pointer text-sm"
                 >
                   Get Free Quote
-                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight
+                    size={18}
+                    className="group-hover:translate-x-1 transition-transform"
+                  />
                 </Link>
                 <a
-                  href="tel:+919508904653"
+                  href={phoneHref}
                   className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/40 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/70 dark:hover:bg-white/10 text-gray-800 dark:text-white font-semibold transition-all backdrop-blur-md flex items-center justify-center gap-2 text-sm"
                 >
-                  <Phone size={16} className="text-brand-accent animate-pulse" />
-                  Call: +91 9508904653
+                  <Phone
+                    size={16}
+                    className="text-brand-accent animate-pulse"
+                  />
+                  Call: {phoneLabel}
                 </a>
               </motion.div>
 
@@ -121,16 +154,28 @@ export default function Home() {
                 className="flex items-center justify-center lg:justify-start gap-8 pt-6 border-t border-black/5 dark:border-white/5 max-w-md mx-auto lg:mx-0"
               >
                 <div>
-                  <div className="text-xl sm:text-2xl font-heading font-black text-brand-accent">20+</div>
-                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1 font-mono">Websites</div>
+                  <div className="text-xl sm:text-2xl font-heading font-black text-brand-accent">
+                    20+
+                  </div>
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1 font-mono">
+                    Websites
+                  </div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-heading font-black text-brand-accent">2+ Years</div>
-                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1 font-mono">Growth</div>
+                  <div className="text-xl sm:text-2xl font-heading font-black text-brand-accent">
+                    2+ Years
+                  </div>
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1 font-mono">
+                    Growth
+                  </div>
                 </div>
                 <div>
-                  <div className="text-xl sm:text-2xl font-heading font-black text-brand-accent">99%</div>
-                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1 font-mono">Success</div>
+                  <div className="text-xl sm:text-2xl font-heading font-black text-brand-accent">
+                    99%
+                  </div>
+                  <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1 font-mono">
+                    Success
+                  </div>
                 </div>
               </motion.div>
             </div>
@@ -139,51 +184,75 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, scale: 0.95, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              transition={{
+                duration: 0.8,
+                delay: 0.35,
+                ease: [0.16, 1, 0.3, 1],
+              }}
               className="lg:col-span-5 hidden lg:block relative"
             >
               {/* Outer HSL glows */}
               <div className="absolute inset-0 bg-gradient-to-tr from-brand-blue/15 to-brand-accent/15 rounded-3xl blur-2xl pointer-events-none" />
-              
+
               {/* Glass Stats Console Container */}
               <div className="glass-dark border border-gray-200 dark:border-white/10 rounded-3xl p-8 relative z-10 bg-white/60 dark:bg-[#03050c]/85 backdrop-blur-2xl shadow-[0_8px_30px_rgba(0,0,0,0.04)]">
-                
                 {/* Tech header inside the console card */}
                 <div className="flex items-center justify-between mb-8 pb-4 border-b border-black/5 dark:border-white/5">
                   <div className="flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-brand-accent animate-pulse" />
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest font-mono">[SYS-PERFORMANCE]</span>
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest font-mono">
+                      [SYS-PERFORMANCE]
+                    </span>
                   </div>
-                  <span className="text-[9px] font-bold text-brand-blue font-mono">METRICS LIVE //</span>
+                  <span className="text-[9px] font-bold text-brand-blue font-mono">
+                    METRICS LIVE //
+                  </span>
                 </div>
 
                 {/* 2x2 grid similar to reference site, but styled with high-fidelity glass */}
                 <div className="grid grid-cols-2 gap-5">
                   <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm">
-                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">25+</div>
-                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Global Projects</div>
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">
+                      25+
+                    </div>
+                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">
+                      Global Projects
+                    </div>
                   </div>
                   <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm mt-4">
-                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">5+</div>
-                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Countries Served</div>
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">
+                      5+
+                    </div>
+                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">
+                      Countries Served
+                    </div>
                   </div>
                   <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm">
-                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">20+</div>
-                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Happy Clients</div>
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">
+                      20+
+                    </div>
+                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">
+                      Happy Clients
+                    </div>
                   </div>
                   <div className="glass bg-slate-50/50 dark:bg-black/40 p-5 rounded-2xl border border-gray-200/55 dark:border-white/5 hover:border-brand-blue/30 transition-colors shadow-sm mt-4">
-                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">5+</div>
-                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">Senior Builders</div>
+                    <div className="text-3xl font-heading font-black text-brand-blue dark:text-white">
+                      5+
+                    </div>
+                    <div className="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mt-1.5 font-mono">
+                      Senior Builders
+                    </div>
                   </div>
                 </div>
 
                 <div className="mt-8 pt-4 border-t border-black/5 dark:border-white/5 flex items-center justify-between text-[10px] text-gray-400 font-mono">
                   <span>AUDITED SYSTEM OK //</span>
-                  <span className="text-green-500 font-bold">● SECURE UPTIME</span>
+                  <span className="text-green-500 font-bold">
+                    ● SECURE UPTIME
+                  </span>
                 </div>
               </div>
             </motion.div>
-
           </div>
         </div>
       </section>
@@ -192,12 +261,14 @@ export default function Home() {
       <section className="py-0 relative overflow-hidden bg-gray-50/60 dark:bg-[#070b16] border-y border-gray-100 dark:border-white/5 transition-colors duration-500">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[20%] left-[25%] w-80 h-80 bg-brand-blue/5 rounded-full blur-[100px] animate-pulse" />
-          <div className="absolute bottom-[20%] right-[25%] w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] animate-pulse" style={{ animationDelay: '2s' }} />
+          <div
+            className="absolute bottom-[20%] right-[25%] w-80 h-80 bg-brand-accent/5 rounded-full blur-[100px] animate-pulse"
+            style={{ animationDelay: "2s" }}
+          />
         </div>
 
         <div className="container mx-auto px-6 max-w-7xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-
             {/* Left Column: Certifications Text */}
             <div className="lg:col-span-5 space-y-6">
               <motion.div
@@ -205,7 +276,9 @@ export default function Home() {
                 className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/5 dark:bg-green-500/10 border border-green-500/20 text-green-700 dark:text-green-400 shadow-[0_0_15px_rgba(34,197,94,0.05)]"
               >
                 <ShieldCheck size={14} className="text-green-500" />
-                <span className="text-xs font-semibold tracking-wider uppercase">Official Government Registration</span>
+                <span className="text-xs font-semibold tracking-wider uppercase">
+                  Official Government Registration
+                </span>
               </motion.div>
               <motion.h2
                 {...fadeIn}
@@ -218,15 +291,21 @@ export default function Home() {
                 {...fadeIn}
                 className="text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed"
               >
-                Nooraxis Technologies is registered under the **Ministry of Micro, Small & Medium Enterprises (MSME)**, Government of India. This certification signifies our dedication to professional business operations, compliance, and trusted technical delivery.
+                Nooraxis Technologies is registered under the **Ministry of
+                Micro, Small & Medium Enterprises (MSME)**, Government of India.
+                This certification signifies our dedication to professional
+                business operations, compliance, and trusted technical delivery.
               </motion.p>
 
               <motion.div {...fadeIn} className="grid grid-cols-2 gap-4 pt-4">
                 {[
                   { title: "Udyam Certified", icon: Award },
-                  { title: "Verified Identity", icon: ShieldCheck }
+                  { title: "Verified Identity", icon: ShieldCheck },
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 font-medium">
+                  <div
+                    key={idx}
+                    className="flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 font-medium"
+                  >
                     <item.icon size={16} className="text-brand-accent" />
                     <span>{item.title}</span>
                   </div>
@@ -244,7 +323,6 @@ export default function Home() {
             >
               <div className="absolute inset-0 bg-brand-blue/5 dark:bg-brand-blue/15 rounded-3xl blur-xl" />
               <div className="glass-dark border border-brand-blue/20 dark:border-brand-blue/30 rounded-3xl p-6 sm:p-10 relative z-10 bg-white/70 dark:bg-[#03050c]/90 backdrop-blur-2xl shadow-[0_8px_30px_rgba(37,99,235,0.06)] hover:border-brand-blue/40 transition-colors duration-300">
-
                 {/* Certificate Card Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-6 border-b border-black/5 dark:border-white/5">
                   <div className="flex items-center gap-4">
@@ -252,7 +330,9 @@ export default function Home() {
                       <Shield size={24} />
                     </div>
                     <div>
-                      <div className="text-gray-900 dark:text-white font-heading font-bold tracking-wide text-lg">Udyam Registration</div>
+                      <div className="text-gray-900 dark:text-white font-heading font-bold tracking-wide text-lg">
+                        Udyam Registration
+                      </div>
                       <div className="text-green-600 dark:text-green-400 text-xs font-semibold flex items-center gap-1 mt-0.5">
                         <CheckCircle2 size={12} /> Verified Enterprise
                       </div>
@@ -266,20 +346,36 @@ export default function Home() {
                 {/* Details Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-5 text-sm">
                   <div>
-                    <div className="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5"><Building2 size={12} /> Enterprise Name</div>
-                    <div className="text-gray-900 dark:text-white font-semibold">Nooraxis Technologies</div>
+                    <div className="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                      <Building2 size={12} /> Enterprise Name
+                    </div>
+                    <div className="text-gray-900 dark:text-white font-semibold">
+                      Nooraxis Technologies
+                    </div>
                   </div>
                   <div>
-                    <div className="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5"><BadgeCheck size={12} /> Enterprise Type</div>
-                    <div className="text-gray-900 dark:text-white font-semibold">Micro Enterprise</div>
+                    <div className="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                      <BadgeCheck size={12} /> Enterprise Type
+                    </div>
+                    <div className="text-gray-900 dark:text-white font-semibold">
+                      Micro Enterprise
+                    </div>
                   </div>
                   <div>
-                    <div className="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5"><Activity size={12} /> Major Activity</div>
-                    <div className="text-gray-900 dark:text-white font-semibold">Services (IT & Digital Solutions)</div>
+                    <div className="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                      <Activity size={12} /> Major Activity
+                    </div>
+                    <div className="text-gray-900 dark:text-white font-semibold">
+                      Services (IT & Digital Solutions)
+                    </div>
                   </div>
                   <div>
-                    <div className="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5"><Calendar size={12} /> Date of Registration</div>
-                    <div className="text-gray-900 dark:text-white font-semibold">21 May 2026</div>
+                    <div className="text-gray-400 dark:text-gray-500 text-[10px] font-bold uppercase tracking-wider mb-1 flex items-center gap-1.5">
+                      <Calendar size={12} /> Date of Registration
+                    </div>
+                    <div className="text-gray-900 dark:text-white font-semibold">
+                      {registrationDate}
+                    </div>
                   </div>
                 </div>
 
@@ -288,11 +384,12 @@ export default function Home() {
                     <Fingerprint size={12} className="text-brand-accent" />
                     <span>Registered in accordance with MSME Act, 2006</span>
                   </div>
-                  <span className="font-mono text-green-500/80 font-semibold uppercase">Active Status</span>
+                  <span className="font-mono text-green-500/80 font-semibold uppercase">
+                    Active Status
+                  </span>
                 </div>
               </div>
             </motion.div>
-
           </div>
         </div>
       </section>
@@ -300,11 +397,20 @@ export default function Home() {
       {/* Bento Grid Core Services */}
       <section className="py-28 bg-slate-50/30 dark:bg-[#050816]/30 border-y border-slate-100 dark:border-white/5 relative transition-colors duration-500">
         <div className="container mx-auto px-6 max-w-7xl">
-          <motion.div {...fadeIn} className="text-center mb-20 max-w-3xl mx-auto">
-            <span className="text-xs font-semibold tracking-[0.2em] text-brand-blue dark:text-brand-accent uppercase mb-3 block font-mono">Our Craft</span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold mb-6 text-gray-900 dark:text-white tracking-tight">What We Do Best</h2>
+          <motion.div
+            {...fadeIn}
+            className="text-center mb-20 max-w-3xl mx-auto"
+          >
+            <span className="text-xs font-semibold tracking-[0.2em] text-brand-blue dark:text-brand-accent uppercase mb-3 block font-mono">
+              Our Craft
+            </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold mb-6 text-gray-900 dark:text-white tracking-tight">
+              What We Do Best
+            </h2>
             <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg max-w-2xl mx-auto font-sans leading-relaxed">
-              We build fast, honest, and reliable digital systems designed to help your business grow. No bloated templates, no cutting corners—just beautiful software engineered with absolute care.
+              We build fast, honest, and reliable digital systems designed to
+              help your business grow. No bloated templates, no cutting
+              corners—just beautiful software engineered with absolute care.
             </p>
           </motion.div>
 
@@ -326,16 +432,30 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-brand-blue flex items-center justify-center mb-6 border border-blue-100/50 dark:border-blue-900/20">
                   <Code size={20} className="stroke-[2.2]" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Genuine Web Craftsmanship</h3>
+                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+                  Genuine Web Craftsmanship
+                </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl leading-relaxed text-sm font-sans">
-                  We build lightning-fast websites that look stunning and feel completely natural to use. By writing clean, custom code using Next.js, we ensure your site is easy to maintain, extremely secure, and designed to convert visitors into loyal customers.
+                  We build lightning-fast websites that look stunning and feel
+                  completely natural to use. By writing clean, custom code using
+                  Next.js, we ensure your site is easy to maintain, extremely
+                  secure, and designed to convert visitors into loyal customers.
                 </p>
               </div>
 
               {/* Custom Tech Stack Visual chips */}
               <div className="flex flex-wrap gap-2 relative z-10 pt-4 border-t border-slate-100 dark:border-white/5">
-                {["Next.js / React", "Clean Custom Code", "Instant Loading", "Type-Safe Backend", "Bespoke UI Design"].map((chip) => (
-                  <span key={chip} className="px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/10 text-[11px] font-semibold text-gray-600 dark:text-gray-300">
+                {[
+                  "Next.js / React",
+                  "Clean Custom Code",
+                  "Instant Loading",
+                  "Type-Safe Backend",
+                  "Bespoke UI Design",
+                ].map((chip) => (
+                  <span
+                    key={chip}
+                    className="px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/10 text-[11px] font-semibold text-gray-600 dark:text-gray-300"
+                  >
                     {chip}
                   </span>
                 ))}
@@ -352,9 +472,14 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-6 border border-purple-100/50 dark:border-purple-900/20">
                   <Smartphone size={20} className="stroke-[2.2]" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Intuitive Mobile Apps</h3>
+                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+                  Intuitive Mobile Apps
+                </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-sm font-sans">
-                  We design and engineer smooth, responsive mobile applications for iOS and Android. Our focus is on creating lightweight, reliable products with clean transitions and natural interactions that your users will genuinely love.
+                  We design and engineer smooth, responsive mobile applications
+                  for iOS and Android. Our focus is on creating lightweight,
+                  reliable products with clean transitions and natural
+                  interactions that your users will genuinely love.
                 </p>
               </div>
               <div className="flex items-center gap-2 text-[11px] font-semibold text-purple-600 dark:text-purple-400 pt-4 border-t border-slate-100 dark:border-white/5 font-mono uppercase tracking-wider">
@@ -374,9 +499,14 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 border border-emerald-100/50 dark:border-emerald-900/20">
                   <Megaphone size={20} className="stroke-[2.2]" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Honest Organic SEO</h3>
+                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+                  Honest Organic SEO
+                </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-sm font-sans">
-                  No cheap tricks, black-hat hacks, or inflated metrics. We optimize your speed, refine your structural layout, and write compelling content that Google loves—helping your ideal clients find you naturally.
+                  No cheap tricks, black-hat hacks, or inflated metrics. We
+                  optimize your speed, refine your structural layout, and write
+                  compelling content that Google loves—helping your ideal
+                  clients find you naturally.
                 </p>
               </div>
               <div className="flex items-center gap-2 text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 pt-4 border-t border-slate-100 dark:border-white/5 font-mono uppercase tracking-wider">
@@ -396,15 +526,28 @@ export default function Home() {
                 <div className="w-12 h-12 rounded-2xl bg-sky-50 dark:bg-sky-950/40 text-sky-600 dark:text-sky-400 flex items-center justify-center mb-6 border border-sky-100/50 dark:border-sky-900/20">
                   <Layers size={20} className="stroke-[2.2]" />
                 </div>
-                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">Robust Cloud Software</h3>
+                <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+                  Robust Cloud Software
+                </h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-xl leading-relaxed text-sm font-sans">
-                  From secure multi-tenant payment integrations to complex database architectures, we build rock-solid backend systems. We handle all the scaling, servers, and hosting logic so you can focus entirely on running your business.
+                  From secure multi-tenant payment integrations to complex
+                  database architectures, we build rock-solid backend systems.
+                  We handle all the scaling, servers, and hosting logic so you
+                  can focus entirely on running your business.
                 </p>
               </div>
 
               <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-100 dark:border-white/5">
-                {["SaaS Dashboards", "Rock-Solid Databases", "Stripe Checkout Integrations", "Secure Cloud Infrastructure"].map((item) => (
-                  <span key={item} className="px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/10 text-[11px] font-semibold text-gray-600 dark:text-gray-300">
+                {[
+                  "SaaS Dashboards",
+                  "Rock-Solid Databases",
+                  "Stripe Checkout Integrations",
+                  "Secure Cloud Infrastructure",
+                ].map((item) => (
+                  <span
+                    key={item}
+                    className="px-3.5 py-1.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-150 dark:border-white/10 text-[11px] font-semibold text-gray-600 dark:text-gray-300"
+                  >
                     {item}
                   </span>
                 ))}
@@ -418,7 +561,10 @@ export default function Home() {
               className="inline-flex items-center gap-2 text-sm font-semibold text-brand-blue hover:text-brand-accent transition-colors group cursor-pointer"
             >
               Explore all services and parameters
-              <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+              <ArrowRight
+                size={16}
+                className="group-hover:translate-x-1 transition-transform"
+              />
             </Link>
           </div>
         </div>
@@ -428,7 +574,6 @@ export default function Home() {
       <section className="py-28 relative overflow-hidden bg-gray-50/60 dark:bg-[#050816] transition-colors duration-500">
         <div className="container mx-auto px-6 max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
             {/* Text details */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -437,13 +582,18 @@ export default function Home() {
               transition={{ duration: 0.6 }}
               className="space-y-6"
             >
-              <span className="text-xs font-semibold tracking-[0.2em] text-brand-blue dark:text-brand-accent uppercase block font-mono">Uncompromising Standards</span>
+              <span className="text-xs font-semibold tracking-[0.2em] text-brand-blue dark:text-brand-accent uppercase block font-mono">
+                Uncompromising Standards
+              </span>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold leading-tight text-gray-900 dark:text-white">
                 Why founders partner <br />
                 <span className="text-gradient">with Nooraxis</span>
               </h2>
               <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg leading-relaxed">
-                Building high-fidelity software requires a relentless commitment to performance, clean layout structures, and absolute honesty. We work as an extension of your product team—no middlemen, no gatekeeping.
+                Building high-fidelity software requires a relentless commitment
+                to performance, clean layout structures, and absolute honesty.
+                We work as an extension of your product team—no middlemen, no
+                gatekeeping.
               </p>
 
               <ul className="space-y-4 pt-4">
@@ -451,11 +601,17 @@ export default function Home() {
                   "Direct access to senior designer-builders",
                   "Transparent codebases with zero vendor lock-in",
                   "Performance-first engineering as a core standard",
-                  "Reliable, production-ready cloud deployments"
+                  "Reliable, production-ready cloud deployments",
                 ].map((item, i) => (
-                  <li key={i} className="flex items-center gap-3 text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <li
+                    key={i}
+                    className="flex items-center gap-3 text-sm font-medium text-gray-700 dark:text-gray-300"
+                  >
                     <div className="w-5 h-5 rounded-full bg-brand-blue/10 dark:bg-brand-blue/20 text-brand-blue flex items-center justify-center shrink-0">
-                      <CheckCircle2 size={13} className="text-brand-blue dark:text-brand-accent" />
+                      <CheckCircle2
+                        size={13}
+                        className="text-brand-blue dark:text-brand-accent"
+                      />
                     </div>
                     <span>{item}</span>
                   </li>
@@ -475,20 +631,36 @@ export default function Home() {
               <div className="glass-dark border border-gray-200 dark:border-white/10 rounded-3xl p-6 sm:p-8 relative z-10 bg-white/50 dark:bg-transparent">
                 <div className="grid grid-cols-2 gap-6">
                   <div className="glass bg-white/40 dark:bg-black/40 p-6 rounded-2xl text-center border border-white/20 dark:border-white/5 shadow-sm">
-                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">99%</div>
-                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Client Satisfaction</div>
+                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">
+                      99%
+                    </div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Client Satisfaction
+                    </div>
                   </div>
                   <div className="glass bg-white/40 dark:bg-black/40 p-6 rounded-2xl text-center border border-white/20 dark:border-white/5 shadow-sm mt-8">
-                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">20+</div>
-                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Projects Delivered</div>
+                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">
+                      20+
+                    </div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Projects Delivered
+                    </div>
                   </div>
                   <div className="glass bg-white/40 dark:bg-black/40 p-6 rounded-2xl text-center border border-white/20 dark:border-white/5 shadow-sm">
-                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">5+</div>
-                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Countries Served</div>
+                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">
+                      5+
+                    </div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Countries Served
+                    </div>
                   </div>
                   <div className="glass bg-white/40 dark:bg-black/40 p-6 rounded-2xl text-center border border-white/20 dark:border-white/5 shadow-sm mt-8">
-                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">24/7</div>
-                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Reliable Support</div>
+                    <div className="text-4xl font-heading font-extrabold text-brand-accent mb-2">
+                      24/7
+                    </div>
+                    <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                      Reliable Support
+                    </div>
                   </div>
                 </div>
               </div>
@@ -507,9 +679,13 @@ export default function Home() {
             <div className="absolute -top-24 -left-24 w-64 h-64 bg-brand-blue/10 rounded-full blur-[80px] pointer-events-none" />
             <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-brand-accent/10 rounded-full blur-[80px] pointer-events-none" />
 
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold mb-6 text-gray-900 dark:text-white leading-tight">Let's build something outstanding</h2>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-heading font-extrabold mb-6 text-gray-900 dark:text-white leading-tight">
+              Let's build something outstanding
+            </h2>
             <p className="text-gray-600 dark:text-gray-400 text-base sm:text-lg mb-10 max-w-2xl mx-auto leading-relaxed">
-              Have an idea for a web platform, SaaS product, or highly custom mobile experience? Reach out and let's explore how we can bring it to life.
+              Have an idea for a web platform, SaaS product, or highly custom
+              mobile experience? Reach out and let's explore how we can bring it
+              to life.
             </p>
             <Link
               href="/contact"
@@ -520,7 +696,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
     </div>
   );
 }

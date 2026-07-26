@@ -7,6 +7,7 @@ import WhatsAppWidget from "@/components/WhatsAppWidget";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import SettingsProvider from "@/components/SettingsProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,14 +37,16 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${poppins.variable} scroll-smooth`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="min-h-screen flex flex-col font-sans antialiased text-foreground bg-background" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="dark" disableTransitionOnChange>
-          <AnnouncementBar />
-          <Navbar />
-          <main className="flex-grow layout-main">
-            {children}
-          </main>
-          <Footer />
-          <WhatsAppWidget />
-          <SpeedInsights />
+          <SettingsProvider>
+            <AnnouncementBar />
+            <Navbar />
+            <main className="flex-grow layout-main">
+              {children}
+            </main>
+            <Footer />
+            <WhatsAppWidget />
+            <SpeedInsights />
+          </SettingsProvider>
         </ThemeProvider>
       </body>
     </html>
