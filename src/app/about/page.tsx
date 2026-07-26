@@ -33,13 +33,15 @@ export default function About() {
   } as const;
 
   const { settings } = useSettings();
-  const galleryImages =
-    settings?.galleryImages && settings.galleryImages.length > 0
+  const galleryImages = [
+    ...(settings?.galleryImages && settings.galleryImages.length > 0
       ? settings.galleryImages.map((src, idx) => ({
           src,
           alt: `Nooraxis gallery image ${idx + 1}`,
         }))
-      : fallbackGalleryImages;
+      : []),
+    ...fallbackGalleryImages,
+  ];
 
   return (
     <div className="flex flex-col w-full overflow-hidden tech-grid min-h-screen">

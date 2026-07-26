@@ -74,6 +74,7 @@ export default function AdminPanel() {
   const [companyRegistrationDate, setCompanyRegistrationDate] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
+  const [galleryImageUrl, setGalleryImageUrl] = useState("");
   const [isSavingCompanySettings, setIsSavingCompanySettings] = useState(false);
 
   // Loading indicators
@@ -1957,22 +1958,31 @@ export default function AdminPanel() {
                         <div className="space-y-2">
                           <label className={labelCls}>About Page Gallery</label>
                           <div className="flex flex-col gap-3">
-                            <label className="inline-flex items-center justify-center w-full cursor-pointer rounded-2xl border border-dashed border-slate-300 dark:border-white/10 bg-slate-50/80 dark:bg-slate-950/40 px-4 py-4 text-sm text-slate-600 dark:text-slate-300 transition hover:border-brand-blue hover:text-brand-blue">
-                              <Upload
-                                className={isUploading ? "animate-bounce" : ""}
-                                size={18}
-                              />
-                              <span className="ml-2">Upload gallery image</span>
+                            <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
                               <input
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                disabled={isUploading}
+                                type="url"
+                                value={galleryImageUrl}
                                 onChange={(e) =>
-                                  handleImageUpload(e, "gallery")
+                                  setGalleryImageUrl(e.target.value)
                                 }
+                                placeholder="Paste image URL here"
+                                className={inputCls}
                               />
-                            </label>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  if (!galleryImageUrl.trim()) return;
+                                  setGalleryImages((prev) => [
+                                    ...prev,
+                                    galleryImageUrl.trim(),
+                                  ]);
+                                  setGalleryImageUrl("");
+                                }}
+                                className="inline-flex items-center justify-center rounded-2xl bg-brand-blue px-5 py-3 text-sm font-semibold text-white hover:bg-brand-blue/90 transition"
+                              >
+                                Add URL
+                              </button>
+                            </div>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                               {galleryImages.length > 0 ? (
                                 galleryImages.map((src, index) => (
