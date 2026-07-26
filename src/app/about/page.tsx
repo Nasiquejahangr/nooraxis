@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle2,
@@ -32,6 +33,17 @@ export default function About() {
   } as const;
 
   const { settings } = useSettings();
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set());
+
+  const markImageFailed = (src: string) =>
+    setFailedImages((current) => new Set(current).add(src));
+  const markImageLoaded = (src: string) =>
+    setFailedImages((current) => {
+      const next = new Set(current);
+      next.delete(src);
+      return next;
+    });
+
   const galleryImages = [
     ...(settings?.galleryImages && settings.galleryImages.length > 0
       ? settings.galleryImages.map((src, idx) => ({
@@ -263,7 +275,15 @@ export default function About() {
                     src={image.src}
                     alt={image.alt}
                     className="h-full w-full object-cover"
+                    onError={() => markImageFailed(image.src)}
+                    onLoad={() => markImageLoaded(image.src)}
                   />
+                  {failedImages.has(image.src) && (
+                    <span
+                      className="pointer-events-none absolute top-3 right-3 h-3.5 w-3.5 rounded-full bg-red-500 ring-2 ring-white dark:ring-slate-950"
+                      title="Image failed to load"
+                    />
+                  )}
                 </motion.div>
               ))}
             </motion.div>
