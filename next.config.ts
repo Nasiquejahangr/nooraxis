@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     "10.233.157.63",
   ],
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
