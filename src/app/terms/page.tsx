@@ -13,7 +13,7 @@ import Link from "next/link";
 import Interactive3DTexture from "@/components/Interactive3DTexture";
 import { useSettings } from "@/components/SettingsProvider";
 
-const createSections = (settings?: { email?: string }) => [
+const createSections = (settings?: { email?: string } | null) => [
   {
     id: "acceptance",
     title: "1. Acceptance of Terms",

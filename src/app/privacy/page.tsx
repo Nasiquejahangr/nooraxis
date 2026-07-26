@@ -14,7 +14,7 @@ import Link from "next/link";
 import Interactive3DTexture from "@/components/Interactive3DTexture";
 import { useSettings } from "@/components/SettingsProvider";
 
-const createSections = (settings?: { email?: string }) => [
+const createSections = (settings?: { email?: string } | null) => [
   {
     id: "collect",
     title: "1. Data Acquisition Profile",

@@ -108,10 +108,10 @@ export default function Home() {
                 }}
                 className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-sans"
               >
-                We are a tightly knit collective of designers and engineers
-                crafting fast, secure, and beautiful digital systems. No
-                template shortcuts, no empty promises—just rigorous engineering
-                and honest collaboration.
+                We build high-conversion websites and digital products for
+                startups that want polished design, fast performance, and clear
+                business impact. From launch-ready web apps to branded
+                growth-focused sites, we move fast without cutting corners.
               </motion.p>
 
               <motion.div
@@ -128,22 +128,22 @@ export default function Home() {
                   href="/contact"
                   className="w-full sm:w-auto px-8 py-4 rounded-xl bg-brand-blue hover:bg-brand-blue/95 text-white font-semibold transition-all shadow-[0_4px_20px_rgba(37,99,235,0.25)] hover:shadow-[0_4px_30px_rgba(37,99,235,0.45)] flex items-center justify-center gap-2 group cursor-pointer text-sm"
                 >
-                  Get Free Quote
+                  Start Your Project
                   <ArrowRight
                     size={18}
                     className="group-hover:translate-x-1 transition-transform"
                   />
                 </Link>
-                <a
-                  href={phoneHref}
+                <Link
+                  href="/contact"
                   className="w-full sm:w-auto px-8 py-4 rounded-xl bg-white/40 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:bg-white/70 dark:hover:bg-white/10 text-gray-800 dark:text-white font-semibold transition-all backdrop-blur-md flex items-center justify-center gap-2 text-sm"
                 >
                   <Phone
                     size={16}
                     className="text-brand-accent animate-pulse"
                   />
-                  Call: {phoneLabel}
-                </a>
+                  Book a Free Consult
+                </Link>
               </motion.div>
 
               {/* Statistical highlights row */}
